@@ -1,0 +1,13 @@
+#!/bin/sh
+alias vi='nvim'
+alias iv='nvim'
+alias vim='nvim'
+
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+
+alias SumatraPDF='SumatraPDF.exe'
+
+alias dotfiles='/usr/bin/git --git-dir=${HOME}/.dotfiles/ --work-tree=${HOME}'
+

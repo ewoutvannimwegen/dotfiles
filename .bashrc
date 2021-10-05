@@ -1,3 +1,11 @@
+# Colors
+orange=$(tput setaf 166);
+yellow=$(tput setaf 228);
+green=$(tput setaf 71);
+white=$(tput setaf 15);
+bold=$(tput bold);
+reset=$(tput sgr0);
+
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
@@ -19,10 +27,6 @@ HISTFILESIZE=2000
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
-# If set, the pattern "**" used in a pathname expansion context will
-# match all files and zero or more directories and subdirectories.
-#shopt -s globstar
-
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
@@ -36,11 +40,6 @@ case "$TERM" in
     xterm-color|*-256color) color_prompt=yes;;
 esac
 
-# uncomment for a colored prompt, if the terminal has the capability; turned
-# off by default to not distract the user: the focus in a terminal window
-# should be on the output of commands, not on the prompt
-#force_color_prompt=yes
-
 if [ -n "$force_color_prompt" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
 	# We have color support; assume it's compliant with Ecma-48
@@ -53,7 +52,21 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+    PS1="\n";
+    PS1+="\[${yellow}\][\[${reset}\]";
+    PS1+="\t";
+    PS1+="\[${yellow}\]]\[${reset}\]";
+    PS1+=" ";
+    PS1+="\[${yellow}\]\u\[${reset}\]";
+    PS1+="\[${white}\]@\[${reset}\]";
+    PS1+="\[${orange}\]\h\[${reset}\]";
+    PS1+=" ";
+    PS1+="\[${green}\]\w\[${reset}\]";
+    PS1+=" ";
+    PS1+="\n";
+    PS1+="\[${yellow}\]~\[${reset}\]";
+    PS1+="\[${green}\]>\[${reset}\]";
+    PS1+=" ";
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
@@ -83,11 +96,6 @@ fi
 # colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
-# some more ls aliases
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
-
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
@@ -112,46 +120,6 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# Colors
-orange=$(tput setaf 166);
-yellow=$(tput setaf 228);
-green=$(tput setaf 71);
-white=$(tput setaf 15);
-bold=$(tput bold);
-reset=$(tput sgr0);
-
-# Prompt
-PS1="\n";
-PS1+="\[${yellow}\][\[${reset}\]";
-PS1+="\t";
-PS1+="\[${yellow}\]]\[${reset}\]";
-PS1+=" ";
-PS1+="\[${yellow}\]\u\[${reset}\]";
-PS1+="\[${white}\]@\[${reset}\]";
-PS1+="\[${orange}\]\h\[${reset}\]";
-PS1+=" ";
-PS1+="\[${green}\]\w\[${reset}\]";
-PS1+=" ";
-PS1+="\n";
-PS1+="\[${yellow}\]~\[${reset}\]";
-PS1+="\[${green}\]>\[${reset}\]";
-PS1+=" ";
-
-# Get the IP Address of the Windows 10 Host and use it in Environment.
-export DISPLAY=$(grep -m 1 nameserver /etc/resolv.conf | awk '{print $2}'):0
-export LIBGL_ALWAYS_INDIRECT=1
-
-# Altera 
-export ALTERAPATH=/mnt/c/altera/13.0sp1
-export QUARTUS_ROOTDIR=$ALTERAPATH/quartus
-export PATH=$PATH:${ALTERAPATH}/quartus/bin
-export PATH=$PATH:${ALTERAPATH}/nios2esd/bin
-
-# Grlib
-export GRLIB=/mnt/c/Users/ewout/grlib-gpl-2021.1-b4265
-
-export PATH=$HOME/bin:$PATH
-export VIM_CONFIG=$HOME/.vim/config
-alias vi='nvim'
-
-alias dotfiles='/usr/bin/git --git-dir=/home/evn/.dotfiles/ --work-tree=/home/evn'
+# Load aliases and shortcuts if existent.
+[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/exportrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/exportrc"
+[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliasrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliasrc"

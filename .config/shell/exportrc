@@ -1,0 +1,33 @@
+#!/bin/sh
+# Get the IP Address of the Windows 10 Host and use it in Environment.
+export DISPLAY=$(grep -m 1 nameserver /etc/resolv.conf | awk '{print $2}'):0
+export LIBGL_ALWAYS_INDIRECT=1
+
+export HDD='/mnt/d'
+
+# Vim
+export VIM_CONFIG=$HOME/.config/vim
+
+# Cargo
+export PATH="${PATH}:${HOME}/.cargo/bin"
+
+# Python
+export PATH=$HOME/bin:$PATH
+
+# Quartus Prime
+export QUARTUS_ROOTDIR=/mnt/c/intelFPGA_lite/20.1/quartus
+export PATH=$PATH:${QUARTUS_ROOTDIR}/bin64
+
+# GRLIB
+export LEON3='${HDD}/toolset/leon3'
+export GRLIB=${LEON3}/grlib-gpl-2021.1-b4265
+export PATH=$PATH:${LEON3}/bcc-2.0.7-gcc/bin
+export PATH=$PATH:${LEON3}/grmon-eval-3.2.12/windows/bin64
+
+# LiteX
+export LITEX='${HDD}/Dev/vexriscv/litex'
+export RISCV=$LITEX/riscv64-unknown-elf-gcc-8.3.0-2019.08.0-x86_64-linux-ubuntu14
+export PATH=$PATH:${RISCV}/bin/
+export PATH=$PATH:${RISCV}/riscv64-unknown-elf-gcc-8/bin/
+
+
