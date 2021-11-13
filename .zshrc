@@ -13,8 +13,8 @@ zmodload zsh/complist
 compinit
 _comp_options+=(globdots)		# Include hidden files.
 
-[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/exportrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/exportrc"
-[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/aliasrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/aliasrc"
+[ -f "${XDG_CONFIG_HOME:-$HOME/.config/shell}/exportrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config/shell}/exportrc"
+[ -f "${XDG_CONFIG_HOME:-$HOME/.config/shell}/aliasrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config/shell}/aliasrc"
 
 zstyle :compinstall filename '~/.zshrc'
 
