@@ -27,6 +27,9 @@ PKGS=(
 'patch'
 'gettext'
 'curl'
+'cargo'
+'bear' 
+'clangd'
 )
 
 for PKG in "${PKGS[@]}"; do
@@ -41,7 +44,6 @@ fi
  
 DIR="$HOME/build/neovim"
 if [ ! -d "$DIR" ]; then
-    cd $DIR && cd ..
     git clone https://github.com/neovim/neovim
     cd $DIR && make -j8
     sudo make clean install 
@@ -59,4 +61,16 @@ git config --global user.email "ewoutvannimwegen@gmail.com"
 dotfiles remote add origin https://github.com/ewoutvannimwegen/dotfiles.git
 dotfiles pull origin main
 
+NPM_PKGS=(
+'pyright'
+)
+
+for PKG in "${NPM_PKGS[@]}"; do
+    echo "INSTALLING: ${PKG}"
+    sudo npm i -g "$PKG" 
+done
+
+cargo install --git https://github.com/latex-lsp/texlab.git --locked
+
 sudo apt-get autoremove -y
+
